@@ -1,0 +1,129 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h2>Usuarios</h2>
+
+    <div class="row">
+        <div style="float:right">
+            @Html.ActionLink("+", "Form", "Usuario", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+
+    <br />
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Editar</th>
+
+                <th>IdUsuario</th>
+                <th>UserName</th>
+                <th class="col-lg-3">Nombre completo</th>
+                @*<th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>*@
+                <th>Email</th>
+                @*<th>Password</th>*@
+                <th>Fecha de nacimiento</th>
+                <th>Sexo</th>
+                <th>Telefono</th>
+                <th>Celular</th>
+                <th>Curp</th>
+                <th class="hidden">IdRol</th>
+                <th>Nombre Rol</th>
+                <th>Imagen</th>
+
+                @*<th class="hidden">IdDirecion</th>*@
+                <th class="col-lg-9">Direcion</th>
+
+                @*<th>Calle</th>
+                    <th>Nunmero Interior</th>
+                    <th>Nunmero Exterior</th>
+
+
+                    <th class="hidden">IdColonia</th>
+                    <th>Nombre Colonia</th>
+                    <th>Codigo Postal</th>
+
+                    <th class="hidden">IdMunicipio</th>
+                    <th>Nombre Municipio</th>
+
+                    <th class="hidden">Id Estado</th>
+                    <th>Nombre Estado</th>
+
+                    <th class="hidden">Id Pais</th>
+                    <th>Nombre Pais</th>*@
+
+
+                <th>Eliminar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.Usuario usuario in Model.Usuarios)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario})"></a></td>
+
+                    <td>@usuario.IdUsuario</td>
+                    <td>@usuario.UserName</td>
+                    <td>@usuario.Nombre @usuario.ApellidoPaterno @usuario.ApellidoMaterno</td>
+                    @*<td>@usuario.ApellidoPaterno</td>
+                        <td>@usuario.ApellidoMaterno</td>*@
+                    <td>@usuario.Email</td>
+                    @*<td>@usuario.Password</td>*@
+                    <td>@usuario.FechaNacimiento</td>
+                    <td>@usuario.Sexo</td>
+                    <td>@usuario.Telefono</td>
+                    <td>@usuario.Celular</td>
+                    <td>@usuario.Curp</td>
+
+                    <td class="hidden">@usuario.Rol.IdRol</td>
+                    <td>@usuario.Rol.Nombre</td>
+
+                    @*Imagen*@
+
+                    @if (usuario.Imagen != null)
+                    {
+                        <td> <img src="data:image/jpeg;base64,@Convert.ToBase64String(usuario.Imagen)" style="height:120px; width:120px "/></td>
+                    }
+                    else
+                    {
+                        <td> <img src="~/Imagen/index.jpg" style="height:120px; width:120px"/></td>
+                    }
+                    @*<td>@usuario.Imagen</td>*@
+
+                    <td class="hidden">@usuario.Direccion.IdDireccion</td>
+                    <td>
+                        @usuario.Direccion.Calle @usuario.Direccion.NumeroInterior @usuario.Direccion.NumeroExterior
+                        @usuario.Direccion.Colonia.Nombre @usuario.Direccion.Colonia.CodigoPostal
+                        @usuario.Direccion.Colonia.Municipio.Nombre @usuario.Direccion.Colonia.Municipio.Estado.Nombre
+                        @usuario.Direccion.Colonia.Municipio.Estado.Pais.Nombre
+                    </td>
+
+
+                    @*<td class="hidden">@usuario.Direccion.Colonia.IdColonia</td>
+                        <td></td>
+                        <td></td>
+
+                        <td class="hidden">@usuario.Direccion.Colonia.Municipio.IdMunicipio</td>
+                        <td></td>
+
+                        <td class="hidden">@usuario.Direccion.Colonia.Municipio.Estado.IdEstado</td>
+                        <td>@usuario.Direccion.Colonia.Municipio.Estado.Nombre</td>
+
+                        <td class="hidden">@usuario.Direccion.Colonia.Municipio.Estado.Pais.IdPais</td>
+                        <td>@usuario.Direccion.Colonia.Municipio.Estado.Pais.Nombre</td>*@
+
+                    <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Usuario", new { IdUsuario = usuario.IdUsuario })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
