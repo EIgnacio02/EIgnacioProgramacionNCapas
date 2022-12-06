@@ -10,14 +10,16 @@
 namespace DL_EF
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class EmpresaGetAll_Result
+    public partial class Aseguradora
     {
-        public int IdEmpresa { get; set; }
+        public int IdAseguradora { get; set; }
         public string Nombre { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
-        public string DireccionWeb { get; set; }
-        public string Imagen { get; set; }
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
+    
+        public virtual Usuario Usuario { get; set; }
     }
 }

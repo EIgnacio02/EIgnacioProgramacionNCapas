@@ -647,7 +647,7 @@ namespace BL
             }
             return result;
         }
-        public static ML.Result GetAllEF()
+        public static ML.Result GetAllEF(ML.Usuario usuario)
         {
             ML.Result result = new ML.Result();
             try
@@ -655,13 +655,13 @@ namespace BL
 
                 using (DL_EF.EIgnacioProgramacionNCapasEntities context = new DL_EF.EIgnacioProgramacionNCapasEntities())
                 {
-                    var query = context.UsuarioGetAll().ToList();
+                    var query = context.UsuarioGetAll(usuario.Nombre, usuario.ApellidoPaterno, usuario.Rol.IdRol).ToList();
                     result.Objects = new List<object>();
                     if (query != null)
                     {
                         foreach (var obj in query)
                         {
-                            ML.Usuario usuario = new ML.Usuario();
+                            usuario = new ML.Usuario();
 
                             usuario.IdUsuario = obj.IdUsuario;
                             usuario.UserName=obj.UserName;

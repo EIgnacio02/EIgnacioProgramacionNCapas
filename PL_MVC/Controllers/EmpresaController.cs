@@ -10,10 +10,10 @@ namespace PL_MVC.Controllers
     {
         // GET: Empresa
         [HttpGet]
-        public ActionResult GetAll()
+        public ActionResult GetAll(string nombre)
         
         {
-            ML.Result result = BL.Empresa.GetAllEF();
+            ML.Result result = BL.Empresa.GetAllEF(nombre);
             ML.Empresa empresa = new ML.Empresa();
 
 

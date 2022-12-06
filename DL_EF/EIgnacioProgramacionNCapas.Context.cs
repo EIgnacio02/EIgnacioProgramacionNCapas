@@ -27,14 +27,43 @@ namespace DL_EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Empresa> Empresas { get; set; }
-        public virtual DbSet<Rol> Rols { get; set; }
+        public virtual DbSet<Aseguradora> Aseguradoras { get; set; }
         public virtual DbSet<Colonia> Colonias { get; set; }
+        public virtual DbSet<Direccion> Direccions { get; set; }
+        public virtual DbSet<Empleado> Empleadoes { get; set; }
+        public virtual DbSet<Empresa> Empresas { get; set; }
         public virtual DbSet<Estado> Estadoes { get; set; }
         public virtual DbSet<Municipio> Municipios { get; set; }
         public virtual DbSet<Pai> Pais { get; set; }
-        public virtual DbSet<Direccion> Direccions { get; set; }
+        public virtual DbSet<Rol> Rols { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+    
+        public virtual int AseguradoraAdd(string nombre, Nullable<int> idUsuario)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AseguradoraAdd", nombreParameter, idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<AseguradoraGetAll_Result> AseguradoraGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AseguradoraGetAll_Result>("AseguradoraGetAll");
+        }
+    
+        public virtual ObjectResult<ColoniaGetByIdMunicipio_Result> ColoniaGetByIdMunicipio(Nullable<int> idMunicipio)
+        {
+            var idMunicipioParameter = idMunicipio.HasValue ?
+                new ObjectParameter("IdMunicipio", idMunicipio) :
+                new ObjectParameter("IdMunicipio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ColoniaGetByIdMunicipio_Result>("ColoniaGetByIdMunicipio", idMunicipioParameter);
+        }
     
         public virtual int DeleteUsuario(Nullable<int> idUsuario)
         {
@@ -45,7 +74,127 @@ namespace DL_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteUsuario", idUsuarioParameter);
         }
     
-        public virtual int EmpresaAdd(string nombre, string telefono, string email, string direccionWeb)
+        public virtual ObjectResult<DireccionGetByIdColonia_Result> DireccionGetByIdColonia(Nullable<int> idColonia)
+        {
+            var idColoniaParameter = idColonia.HasValue ?
+                new ObjectParameter("IdColonia", idColonia) :
+                new ObjectParameter("IdColonia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DireccionGetByIdColonia_Result>("DireccionGetByIdColonia", idColoniaParameter);
+        }
+    
+        public virtual int EmpleadoAdd(string numeroEmpleado, string rfc, string nombre, string apellidoPaterno, string apellidoMaterno, string email, string telefono, string fechaNacimiento, string nss, string fechaIngreso, string foto, Nullable<int> idEmpresa)
+        {
+            var numeroEmpleadoParameter = numeroEmpleado != null ?
+                new ObjectParameter("NumeroEmpleado", numeroEmpleado) :
+                new ObjectParameter("NumeroEmpleado", typeof(string));
+    
+            var rfcParameter = rfc != null ?
+                new ObjectParameter("Rfc", rfc) :
+                new ObjectParameter("Rfc", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var apellidoPaternoParameter = apellidoPaterno != null ?
+                new ObjectParameter("ApellidoPaterno", apellidoPaterno) :
+                new ObjectParameter("ApellidoPaterno", typeof(string));
+    
+            var apellidoMaternoParameter = apellidoMaterno != null ?
+                new ObjectParameter("ApellidoMaterno", apellidoMaterno) :
+                new ObjectParameter("ApellidoMaterno", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento != null ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(string));
+    
+            var nssParameter = nss != null ?
+                new ObjectParameter("Nss", nss) :
+                new ObjectParameter("Nss", typeof(string));
+    
+            var fechaIngresoParameter = fechaIngreso != null ?
+                new ObjectParameter("FechaIngreso", fechaIngreso) :
+                new ObjectParameter("FechaIngreso", typeof(string));
+    
+            var fotoParameter = foto != null ?
+                new ObjectParameter("Foto", foto) :
+                new ObjectParameter("Foto", typeof(string));
+    
+            var idEmpresaParameter = idEmpresa.HasValue ?
+                new ObjectParameter("IdEmpresa", idEmpresa) :
+                new ObjectParameter("IdEmpresa", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EmpleadoAdd", numeroEmpleadoParameter, rfcParameter, nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, emailParameter, telefonoParameter, fechaNacimientoParameter, nssParameter, fechaIngresoParameter, fotoParameter, idEmpresaParameter);
+        }
+    
+        public virtual ObjectResult<EmpleadoGetAll_Result> EmpleadoGetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmpleadoGetAll_Result>("EmpleadoGetAll");
+        }
+    
+        public virtual int EmpleadoUpdate(string numeroEmpleado, string rfc, string nombre, string apellidoPaterno, string apellidoMaterno, string email, string telefono, string fechaNacimiento, string nSS, string fechaIngreso, string foto, string idEmpresa)
+        {
+            var numeroEmpleadoParameter = numeroEmpleado != null ?
+                new ObjectParameter("NumeroEmpleado", numeroEmpleado) :
+                new ObjectParameter("NumeroEmpleado", typeof(string));
+    
+            var rfcParameter = rfc != null ?
+                new ObjectParameter("Rfc", rfc) :
+                new ObjectParameter("Rfc", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var apellidoPaternoParameter = apellidoPaterno != null ?
+                new ObjectParameter("ApellidoPaterno", apellidoPaterno) :
+                new ObjectParameter("ApellidoPaterno", typeof(string));
+    
+            var apellidoMaternoParameter = apellidoMaterno != null ?
+                new ObjectParameter("ApellidoMaterno", apellidoMaterno) :
+                new ObjectParameter("ApellidoMaterno", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento != null ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(string));
+    
+            var nSSParameter = nSS != null ?
+                new ObjectParameter("NSS", nSS) :
+                new ObjectParameter("NSS", typeof(string));
+    
+            var fechaIngresoParameter = fechaIngreso != null ?
+                new ObjectParameter("FechaIngreso", fechaIngreso) :
+                new ObjectParameter("FechaIngreso", typeof(string));
+    
+            var fotoParameter = foto != null ?
+                new ObjectParameter("Foto", foto) :
+                new ObjectParameter("Foto", typeof(string));
+    
+            var idEmpresaParameter = idEmpresa != null ?
+                new ObjectParameter("IdEmpresa", idEmpresa) :
+                new ObjectParameter("IdEmpresa", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EmpleadoUpdate", numeroEmpleadoParameter, rfcParameter, nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, emailParameter, telefonoParameter, fechaNacimientoParameter, nSSParameter, fechaIngresoParameter, fotoParameter, idEmpresaParameter);
+        }
+    
+        public virtual int EmpresaAdd(string nombre, string telefono, string email, string direccionWeb, string imagen)
         {
             var nombreParameter = nombre != null ?
                 new ObjectParameter("Nombre", nombre) :
@@ -63,7 +212,11 @@ namespace DL_EF
                 new ObjectParameter("DireccionWeb", direccionWeb) :
                 new ObjectParameter("DireccionWeb", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EmpresaAdd", nombreParameter, telefonoParameter, emailParameter, direccionWebParameter);
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EmpresaAdd", nombreParameter, telefonoParameter, emailParameter, direccionWebParameter, imagenParameter);
         }
     
         public virtual int EmpresaDelete(Nullable<int> idEmpresa)
@@ -75,9 +228,13 @@ namespace DL_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EmpresaDelete", idEmpresaParameter);
         }
     
-        public virtual ObjectResult<EmpresaGetAll_Result> EmpresaGetAll()
+        public virtual ObjectResult<EmpresaGetAll_Result> EmpresaGetAll(string nombre)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmpresaGetAll_Result>("EmpresaGetAll");
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmpresaGetAll_Result>("EmpresaGetAll", nombreParameter);
         }
     
         public virtual ObjectResult<EmpresaGetById_Result> EmpresaGetById(Nullable<int> idEmpresa)
@@ -89,7 +246,7 @@ namespace DL_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmpresaGetById_Result>("EmpresaGetById", idEmpresaParameter);
         }
     
-        public virtual int EmpresaUpdate(Nullable<int> idEmpresa, string nombre, string telefono, string email, string direcionWeb)
+        public virtual int EmpresaUpdate(Nullable<int> idEmpresa, string nombre, string telefono, string email, string direcionWeb, string imagen)
         {
             var idEmpresaParameter = idEmpresa.HasValue ?
                 new ObjectParameter("IdEmpresa", idEmpresa) :
@@ -111,30 +268,11 @@ namespace DL_EF
                 new ObjectParameter("DirecionWeb", direcionWeb) :
                 new ObjectParameter("DirecionWeb", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EmpresaUpdate", idEmpresaParameter, nombreParameter, telefonoParameter, emailParameter, direcionWebParameter);
-        }
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(string));
     
-        public virtual ObjectResult<RolGetAll_Result> RolGetAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RolGetAll_Result>("RolGetAll");
-        }
-    
-        public virtual int RollAdd(string nombre)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RollAdd", nombreParameter);
-        }
-    
-        public virtual ObjectResult<ColoniaGetByIdMunicipio_Result> ColoniaGetByIdMunicipio(Nullable<int> idMunicipio)
-        {
-            var idMunicipioParameter = idMunicipio.HasValue ?
-                new ObjectParameter("IdMunicipio", idMunicipio) :
-                new ObjectParameter("IdMunicipio", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ColoniaGetByIdMunicipio_Result>("ColoniaGetByIdMunicipio", idMunicipioParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EmpresaUpdate", idEmpresaParameter, nombreParameter, telefonoParameter, emailParameter, direcionWebParameter, imagenParameter);
         }
     
         public virtual ObjectResult<EstadoGetByIdPais_Result> EstadoGetByIdPais(Nullable<int> idPais)
@@ -160,25 +298,34 @@ namespace DL_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PaisGetAll_Result>("PaisGetAll");
         }
     
-        public virtual ObjectResult<DireccionGetByIdColonia_Result> DireccionGetByIdColonia(Nullable<int> idColonia)
+        public virtual ObjectResult<RolGetAll_Result> RolGetAll()
         {
-            var idColoniaParameter = idColonia.HasValue ?
-                new ObjectParameter("IdColonia", idColonia) :
-                new ObjectParameter("IdColonia", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DireccionGetByIdColonia_Result>("DireccionGetByIdColonia", idColoniaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RolGetAll_Result>("RolGetAll");
         }
     
-        public virtual int UsuarioDelete(Nullable<int> idUsuario)
+        public virtual int RollAdd(string nombre)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RollAdd", nombreParameter);
+        }
+    
+        public virtual int UpdateStatus(Nullable<int> idUsuario, Nullable<bool> valorStatus)
         {
             var idUsuarioParameter = idUsuario.HasValue ?
                 new ObjectParameter("IdUsuario", idUsuario) :
                 new ObjectParameter("IdUsuario", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsuarioDelete", idUsuarioParameter);
+            var valorStatusParameter = valorStatus.HasValue ?
+                new ObjectParameter("ValorStatus", valorStatus) :
+                new ObjectParameter("ValorStatus", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateStatus", idUsuarioParameter, valorStatusParameter);
         }
     
-        public virtual int UsuarioAdd(string userName, string nombre, string apellidoPaterno, string apellidoMaterno, string email, string password, string fechaNacimiento, string sexo, string telefono, string celular, string cURP, Nullable<byte> idRol, byte[] imagen, string calle, string numeroInterior, string numeroExterior, Nullable<int> idColonia)
+        public virtual int UsuarioAdd(string userName, string nombre, string apellidoPaterno, string apellidoMaterno, string email, string password, string fechaNacimiento, string sexo, string telefono, string celular, string cURP, Nullable<byte> idRol, string imagen, string calle, string numeroInterior, string numeroExterior, Nullable<int> idColonia)
         {
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
@@ -230,7 +377,7 @@ namespace DL_EF
     
             var imagenParameter = imagen != null ?
                 new ObjectParameter("Imagen", imagen) :
-                new ObjectParameter("Imagen", typeof(byte[]));
+                new ObjectParameter("Imagen", typeof(string));
     
             var calleParameter = calle != null ?
                 new ObjectParameter("Calle", calle) :
@@ -251,9 +398,30 @@ namespace DL_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsuarioAdd", userNameParameter, nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, emailParameter, passwordParameter, fechaNacimientoParameter, sexoParameter, telefonoParameter, celularParameter, cURPParameter, idRolParameter, imagenParameter, calleParameter, numeroInteriorParameter, numeroExteriorParameter, idColoniaParameter);
         }
     
-        public virtual ObjectResult<UsuarioGetAll_Result> UsuarioGetAll()
+        public virtual int UsuarioDelete(Nullable<int> idUsuario)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result>("UsuarioGetAll");
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsuarioDelete", idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<UsuarioGetAll_Result> UsuarioGetAll(string nombre, string apellidoPaterno, Nullable<byte> idRol)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var apellidoPaternoParameter = apellidoPaterno != null ?
+                new ObjectParameter("ApellidoPaterno", apellidoPaterno) :
+                new ObjectParameter("ApellidoPaterno", typeof(string));
+    
+            var idRolParameter = idRol.HasValue ?
+                new ObjectParameter("IdRol", idRol) :
+                new ObjectParameter("IdRol", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetAll_Result>("UsuarioGetAll", nombreParameter, apellidoPaternoParameter, idRolParameter);
         }
     
         public virtual ObjectResult<UsuarioGetById_Result> UsuarioGetById(Nullable<int> idUsuario)
@@ -265,7 +433,7 @@ namespace DL_EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsuarioGetById_Result>("UsuarioGetById", idUsuarioParameter);
         }
     
-        public virtual int UsuarioUpdate(Nullable<int> idUsuario, string userName, string nombre, string apellidoPaterno, string apellidoMaterno, string email, string password, string fechaNacimiento, string sexo, string telefono, string celular, string cURP, Nullable<byte> idRol, byte[] imagen, string calle, string numeroInterior, string numeroExterior, Nullable<int> idColonia)
+        public virtual int UsuarioUpdate(Nullable<int> idUsuario, string userName, string nombre, string apellidoPaterno, string apellidoMaterno, string email, string password, string fechaNacimiento, string sexo, string telefono, string celular, string cURP, Nullable<byte> idRol, string imagen, string calle, string numeroInterior, string numeroExterior, Nullable<int> idColonia)
         {
             var idUsuarioParameter = idUsuario.HasValue ?
                 new ObjectParameter("IdUsuario", idUsuario) :
@@ -321,7 +489,7 @@ namespace DL_EF
     
             var imagenParameter = imagen != null ?
                 new ObjectParameter("Imagen", imagen) :
-                new ObjectParameter("Imagen", typeof(byte[]));
+                new ObjectParameter("Imagen", typeof(string));
     
             var calleParameter = calle != null ?
                 new ObjectParameter("Calle", calle) :

@@ -314,7 +314,7 @@ namespace BL
             {
                 using (DL_EF.EIgnacioProgramacionNCapasEntities context=new DL_EF.EIgnacioProgramacionNCapasEntities())
                 {
-                    int query = context.EmpresaAdd(empresa.Nombre,empresa.Telefono,empresa.Email,empresa.DireccionWeb);
+                    int query = context.EmpresaAdd(empresa.Nombre,empresa.Telefono,empresa.Email,empresa.DireccionWeb,null);
                     if (query>0)
                     {
                         result.Message = "Se ingresaron los datos correctamente";
@@ -333,7 +333,7 @@ namespace BL
             return result;
         }
 
-        public static ML.Result GetAllEF()
+        public static ML.Result GetAllEF(string nombre)
         {
             ML.Result result=new ML.Result();
 
@@ -341,7 +341,7 @@ namespace BL
             {
                 using (DL_EF.EIgnacioProgramacionNCapasEntities context=new DL_EF.EIgnacioProgramacionNCapasEntities())
                 {
-                    var query = context.EmpresaGetAll().ToList();
+                    var query = context.EmpresaGetAll(nombre).ToList();
                     result.Objects = new List<object>();
                     if (query!=null)
                     {
@@ -417,7 +417,7 @@ namespace BL
             {
                 using (DL_EF.EIgnacioProgramacionNCapasEntities context=new DL_EF.EIgnacioProgramacionNCapasEntities())
                 {
-                    int query = context.EmpresaUpdate(empresa.IdEmpresa,empresa.Nombre,empresa.Telefono,empresa.Email,empresa.DireccionWeb);
+                    int query = context.EmpresaUpdate(empresa.IdEmpresa,empresa.Nombre,empresa.Telefono,empresa.Email,empresa.DireccionWeb,null);
 
                     if (query>0)
                     {

@@ -12,10 +12,10 @@ namespace PL_MVC.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            //Guardamos los datos del metodos que queremos llamar  en el objeto
-            ML.Result result = BL.Usuario.GetAllEF();
-
             ML.Usuario usuario = new ML.Usuario(); //Instanciamos para poder usar los datos usuario
+            //Guardamos los datos del metodos que queremos llamar  en el objeto
+            ML.Result result = BL.Usuario.GetAllEF(usuario);
+
             
             if (result.Correct)
             {
@@ -28,6 +28,32 @@ namespace PL_MVC.Controllers
             }
             return View(usuario); //Guardamos los datos en la vista 
         }
+
+        [HttpPost]
+        public ActionResult GetAll(ML.Usuario usuario)
+        {
+            //Guardamos los datos del metodos que queremos llamar  en el objeto
+            //ML.Result result = BL.Usuario.GetAll(usuario);
+
+            /* ML.Usuario usuario = new ML.Usuario();*/ //Instanciamos para poder usar los datos usuario
+            ML.Result resultRol = BL.Rol.GetAllEF();
+            ML.Result result = new ML.Result();
+            result.Objects = new List<object>();
+            usuario.Rol = new ML.Rol();
+
+            if (result.Correct)
+            {
+                //Guaramos la lista result en la lista de usario(ML)
+                usuario.Usuarios = result.Objects;
+                usuario.Rol.Roles = resultRol.Objects;
+            }
+            else
+            {
+                ViewBag.Message = "Ocurrio un error";
+            }
+            return View(usuario); //Guardamos los datos en la vista 
+        }
+
 
         [HttpGet] //MUESTRA LAS VISTAS
         public ActionResult Form(int? IdUsuario)
@@ -104,7 +130,7 @@ namespace PL_MVC.Controllers
 
                 if (file.ContentLength > 0)
                 {
-                    usuario.Imagen = ConvertToBytes(file); //Metodo;
+                    /*usuario.Imagen = ConvertToBytes(file);*/ //Metodo;
                 }
 
                 result = BL.Usuario.AddEF(usuario);
@@ -126,7 +152,7 @@ namespace PL_MVC.Controllers
 
                 if (file.ContentLength > 0)
                 {
-                    usuario.Imagen = ConvertToBytes(file); //Metodo;
+                    /*usuario.Imagen = ConvertToBytes(file);*/ //Metodo;
                 }
                 result = BL.Usuario.UpdateEF(usuario);
                 if (result.Correct)
@@ -180,15 +206,16 @@ namespace PL_MVC.Controllers
 
 
         //METODO PARA AGREGAR IMAGEN
-        public byte[] ConvertToBytes(HttpPostedFileBase Imagen)
-        {
-            byte[] data = null;
+        //public byte[] ConvertToBytes(HttpPostedFileBase Imagen)
+        //{
+        //    byte[] data = null;
 
-            System.IO.BinaryReader reader=new System.IO.BinaryReader(Imagen.InputStream);
-            data = reader.ReadBytes((int)Imagen.ContentLength);
+        //    System.IO.BinaryReader reader=new System.IO.BinaryReader(Imagen.InputStream);
+        //    data = reader.ReadBytes((int)Imagen.ContentLength);
 
-            return data;
-        }
+        //    return data;
+
+        //}
 
 
 

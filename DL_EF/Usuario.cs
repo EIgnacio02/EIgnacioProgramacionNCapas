@@ -17,6 +17,7 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
+            this.Aseguradoras = new HashSet<Aseguradora>();
             this.Direccions = new HashSet<Direccion>();
         }
     
@@ -33,8 +34,11 @@ namespace DL_EF
         public string Celular { get; set; }
         public string CURP { get; set; }
         public Nullable<byte> IdRol { get; set; }
-        public byte[] Imagen { get; set; }
+        public string Imagen { get; set; }
+        public Nullable<bool> Status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Aseguradora> Aseguradoras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Direccion> Direccions { get; set; }
         public virtual Rol Rol { get; set; }

@@ -32,6 +32,6 @@ namespace ML
 
 
         //Agregar imagen
-        public byte[] Imagen { get; set; }
+        public string Imagen { get; set; }
     }
 }

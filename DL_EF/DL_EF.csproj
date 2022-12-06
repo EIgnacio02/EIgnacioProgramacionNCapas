@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aseguradora.cs">
+      <DependentUpon>EIgnacioProgramacionNCapas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AseguradoraGetAll_Result.cs">
+      <DependentUpon>EIgnacioProgramacionNCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Colonia.cs">
       <DependentUpon>EIgnacioProgramacionNCapas.tt</DependentUpon>
     </Compile>
@@ -76,6 +82,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EIgnacioProgramacionNCapas.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleado.cs">
+      <DependentUpon>EIgnacioProgramacionNCapas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpleadoGetAll_Result.cs">
+      <DependentUpon>EIgnacioProgramacionNCapas.tt</DependentUpon>
     </Compile>
     <Compile Include="Empresa.cs">
       <DependentUpon>EIgnacioProgramacionNCapas.tt</DependentUpon>
