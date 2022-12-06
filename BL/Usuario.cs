@@ -570,83 +570,6 @@ namespace BL
 
         
         //ENTITY FRAMEWORK
-        public static ML.Result AddEF(ML.Usuario usuario)
-        {
-            ML.Result result = new ML.Result();
-            try
-            {
-
-                using (DL_EF.EIgnacioProgramacionNCapasEntities context=new DL_EF.EIgnacioProgramacionNCapasEntities())
-                {
-                    int query = context.UsuarioAdd(usuario.UserName,usuario.Nombre,usuario.ApellidoPaterno,usuario.ApellidoMaterno,usuario.Email,usuario.Password,usuario.FechaNacimiento,usuario.Sexo,usuario.Telefono,usuario.Celular,usuario.Curp,usuario.Rol.IdRol,usuario.Imagen,usuario.Direccion.Calle,usuario.Direccion.NumeroInterior,usuario.Direccion.NumeroExterior,usuario.Direccion.Colonia.IdColonia);
-
-                    if (query>0)
-                    {
-                        result.Message = "Se ingresaron los datos correctamente";
-                    }
-                }
-                result.Correct = true;
-            }
-            catch (Exception ex)
-            {
-                result.Correct = false;
-                result.Ex = ex;
-                result.Message = "Ocurrio un problema";
-                throw;
-            }
-            return result;
-        }
-        public static ML.Result UpdateEF(ML.Usuario usuario)
-        {
-            ML.Result result=new ML.Result();
-
-            try
-            {
-                using (DL_EF.EIgnacioProgramacionNCapasEntities context = new DL_EF.EIgnacioProgramacionNCapasEntities())
-                {
-                    var query = context.UsuarioUpdate(usuario.IdUsuario, usuario.UserName, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Email, usuario.Password, usuario.FechaNacimiento, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.Curp, usuario.Rol.IdRol,usuario.Imagen,usuario.Direccion.Calle,usuario.Direccion.NumeroInterior,usuario.Direccion.NumeroExterior,usuario.Direccion.Colonia.IdColonia);
-
-                    if (query > 0)
-                    {
-                        result.Message = "Se actualizaron los datos correctamente";
-                    }
-                }
-                result.Correct = true;
-            }
-            catch (Exception ex)
-            {
-                result.Correct = false;
-                result.Message = "Ocurrio un problema";
-                result.Ex = ex; 
-                throw;
-            }
-            return result;
-        }
-        public static ML.Result DeleteEF(int IdUsuario)
-        {
-            ML.Result result = new ML.Result();
-
-            try
-            {
-                using (DL_EF.EIgnacioProgramacionNCapasEntities context = new DL_EF.EIgnacioProgramacionNCapasEntities())
-                {
-                    var query = context.UsuarioDelete(IdUsuario);
-                    if (query>0)
-                    {
-                        result.Message = "Se elimino correctamente ";
-                    }
-                }
-                result.Correct = true;
-            }
-            catch (Exception ex)
-            {
-                result.Correct= false;
-                result.Message = "Ocurrio un problema";
-                result.Ex= ex;
-                throw;
-            }
-            return result;
-        }
         public static ML.Result GetAllEF(ML.Usuario usuario)
         {
             ML.Result result = new ML.Result();
@@ -655,31 +578,32 @@ namespace BL
 
                 using (DL_EF.EIgnacioProgramacionNCapasEntities context = new DL_EF.EIgnacioProgramacionNCapasEntities())
                 {
+                    usuario.Rol.IdRol = (byte)((usuario.Rol.IdRol == null) ? 0 : usuario.Rol.IdRol);
                     var query = context.UsuarioGetAll(usuario.Nombre, usuario.ApellidoPaterno, usuario.Rol.IdRol).ToList();
                     result.Objects = new List<object>();
                     if (query != null)
                     {
                         foreach (var obj in query)
                         {
-                            usuario = new ML.Usuario();
+                            ML.Usuario usuarios = new ML.Usuario();
 
-                            usuario.IdUsuario = obj.IdUsuario;
-                            usuario.UserName=obj.UserName;
-                            usuario.Nombre = obj.Nombre;
-                            usuario.ApellidoPaterno = obj.ApellidoPaterno;
-                            usuario.ApellidoMaterno = obj.ApellidoMaterno;
-                            usuario.Email = obj.Email;
-                            usuario.Password=obj.Password;
-                            usuario.FechaNacimiento = obj.FechaNacimiento.ToString("dd/MM/yyyy");
-                            usuario.Sexo=obj.Sexo;
-                            usuario.Telefono = obj.Telefono;
-                            usuario.Celular=obj.Celular;
-                            usuario.Curp = obj.CURP;
+                            usuarios.IdUsuario = obj.IdUsuario;
+                            usuarios.UserName=obj.UserName;
+                            usuarios.Nombre = obj.Nombre;
+                            usuarios.ApellidoPaterno = obj.ApellidoPaterno;
+                            usuarios.ApellidoMaterno = obj.ApellidoMaterno;
+                            usuarios.Email = obj.Email;
+                            usuarios.Password=obj.Password;
+                            usuarios.FechaNacimiento = obj.FechaNacimiento.ToString("dd/MM/yyyy");
+                            usuarios.Sexo=obj.Sexo;
+                            usuarios.Telefono = obj.Telefono;
+                            usuarios.Celular=obj.Celular;
+                            usuarios.Curp = obj.CURP;
 
                             //ROL   
-                            usuario.Rol = new ML.Rol(); //Inicializamos para pador acceder a las prop de rol
-                            usuario.Rol.IdRol = (byte)obj.IdRol;
-                            usuario.Rol.Nombre = obj.NombreRol;
+                            usuarios.Rol = new ML.Rol(); //Inicializamos para pador acceder a las prop de rol
+                            usuarios.Rol.IdRol = (byte)obj.IdRol;
+                            usuarios.Rol.Nombre = obj.NombreRol;
 
                             //Imagen
                             usuario.Imagen = obj.Imagen;
@@ -708,7 +632,7 @@ namespace BL
                             usuario.Direccion.Colonia.Municipio.Estado.Pais.IdPais=obj.IdPais.Value;
                             usuario.Direccion.Colonia.Municipio.Estado.Pais.Nombre=obj.NombrePais;
 
-                            result.Objects.Add(usuario);
+                            result.Objects.Add(usuarios);
                         }
                         //result.Message = ("Todos tus datos");
                     }
@@ -799,7 +723,83 @@ namespace BL
             }
             return result;
         }
+        public static ML.Result AddEF(ML.Usuario usuario)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
 
+                using (DL_EF.EIgnacioProgramacionNCapasEntities context=new DL_EF.EIgnacioProgramacionNCapasEntities())
+                {
+                    int query = context.UsuarioAdd(usuario.UserName,usuario.Nombre,usuario.ApellidoPaterno,usuario.ApellidoMaterno,usuario.Email,usuario.Password,usuario.FechaNacimiento,usuario.Sexo,usuario.Telefono,usuario.Celular,usuario.Curp,usuario.Rol.IdRol,usuario.Imagen,usuario.Direccion.Calle,usuario.Direccion.NumeroInterior,usuario.Direccion.NumeroExterior,usuario.Direccion.Colonia.IdColonia);
+
+                    if (query>0)
+                    {
+                        result.Message = "Se ingresaron los datos correctamente";
+                    }
+                }
+                result.Correct = true;
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un problema";
+                throw;
+            }
+            return result;
+        }
+        public static ML.Result UpdateEF(ML.Usuario usuario)
+        {
+            ML.Result result=new ML.Result();
+
+            try
+            {
+                using (DL_EF.EIgnacioProgramacionNCapasEntities context = new DL_EF.EIgnacioProgramacionNCapasEntities())
+                {
+                    var query = context.UsuarioUpdate(usuario.IdUsuario, usuario.UserName, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Email, usuario.Password, usuario.FechaNacimiento, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.Curp, usuario.Rol.IdRol,usuario.Imagen,usuario.Direccion.Calle,usuario.Direccion.NumeroInterior,usuario.Direccion.NumeroExterior,usuario.Direccion.Colonia.IdColonia);
+
+                    if (query > 0)
+                    {
+                        result.Message = "Se actualizaron los datos correctamente";
+                    }
+                }
+                result.Correct = true;
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Message = "Ocurrio un problema";
+                result.Ex = ex; 
+                throw;
+            }
+            return result;
+        }
+        public static ML.Result DeleteEF(int IdUsuario)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (DL_EF.EIgnacioProgramacionNCapasEntities context = new DL_EF.EIgnacioProgramacionNCapasEntities())
+                {
+                    var query = context.UsuarioDelete(IdUsuario);
+                    if (query>0)
+                    {
+                        result.Message = "Se elimino correctamente ";
+                    }
+                }
+                result.Correct = true;
+            }
+            catch (Exception ex)
+            {
+                result.Correct= false;
+                result.Message = "Ocurrio un problema";
+                result.Ex= ex;
+                throw;
+            }
+            return result;
+        }
 
         //LINQ
         public static ML.Result AddLINQ(ML.Usuario usuario)

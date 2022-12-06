@@ -12,21 +12,25 @@ namespace PL_MVC.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
+            ML.Result resultRol = BL.Rol.GetAllEF();
             ML.Usuario usuario = new ML.Usuario(); //Instanciamos para poder usar los datos usuario
+            usuario.Rol = new ML.Rol();
             //Guardamos los datos del metodos que queremos llamar  en el objeto
             ML.Result result = BL.Usuario.GetAllEF(usuario);
+            result.Objects = new List<object>();
 
             
             if (result.Correct)
             {
-                //Guaramos la lista result en la lista de usario(ML)
-                usuario.Usuarios = result.Objects; 
+                usuario.Rol.Roles = resultRol.Objects;
+                usuario.Usuarios = result.Objects;
+                return View(usuario); //Guardamos los datos en la vista 
             }
             else
             {
                 ViewBag.Message = "Ocurrio un error";
+                return View(); ;
             }
-            return View(usuario); //Guardamos los datos en la vista 
         }
 
         [HttpPost]
