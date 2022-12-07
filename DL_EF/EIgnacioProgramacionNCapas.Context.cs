@@ -509,5 +509,40 @@ namespace DL_EF
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsuarioUpdate", idUsuarioParameter, userNameParameter, nombreParameter, apellidoPaternoParameter, apellidoMaternoParameter, emailParameter, passwordParameter, fechaNacimientoParameter, sexoParameter, telefonoParameter, celularParameter, cURPParameter, idRolParameter, imagenParameter, calleParameter, numeroInteriorParameter, numeroExteriorParameter, idColoniaParameter);
         }
+    
+        public virtual int AseguradoraDelete(Nullable<int> idAseguradora)
+        {
+            var idAseguradoraParameter = idAseguradora.HasValue ?
+                new ObjectParameter("IdAseguradora", idAseguradora) :
+                new ObjectParameter("IdAseguradora", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AseguradoraDelete", idAseguradoraParameter);
+        }
+    
+        public virtual ObjectResult<AseguradoraGetById_Result> AseguradoraGetById(Nullable<int> idAseguradora)
+        {
+            var idAseguradoraParameter = idAseguradora.HasValue ?
+                new ObjectParameter("IdAseguradora", idAseguradora) :
+                new ObjectParameter("IdAseguradora", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AseguradoraGetById_Result>("AseguradoraGetById", idAseguradoraParameter);
+        }
+    
+        public virtual int AseguradoraUpdate(Nullable<int> idAseguradora, string nombre, Nullable<int> idUsuario)
+        {
+            var idAseguradoraParameter = idAseguradora.HasValue ?
+                new ObjectParameter("IdAseguradora", idAseguradora) :
+                new ObjectParameter("IdAseguradora", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AseguradoraUpdate", idAseguradoraParameter, nombreParameter, idUsuarioParameter);
+        }
     }
 }

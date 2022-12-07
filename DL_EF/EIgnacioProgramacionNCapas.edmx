@@ -217,9 +217,13 @@
           <Parameter Name="IdAseguradora" Type="int" Mode="In" />
         </Function>
         <Function Name="AseguradoraGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="AseguradoraGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAseguradora" Type="int" Mode="In" />
+        </Function>
         <Function Name="AseguradoraUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdAseguradora" Type="int" Mode="In" />
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
         </Function>
         <Function Name="ColoniaGetByIdMunicipio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdMunicipio" Type="int" Mode="In" />
@@ -572,11 +576,15 @@
             <Parameter Name="IdColonia" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AseguradoraDelete">
-            <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
+          <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AseguradoraGetById" ReturnType="Collection(EIgnacioProgramacionNCapasModel.AseguradoraGetById_Result)">
+          <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AseguradoraUpdate">
             <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
             <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Aseguradora">
@@ -934,6 +942,16 @@
           <Property Type="Int32" Name="IdPais" Nullable="true" />
           <Property Type="String" Name="NombrePais" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="AseguradoraGetById_Result">
+          <Property Type="Int32" Name="IdAseguradora" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="true" />
+          <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1254,6 +1272,20 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UsuarioUpdate" FunctionName="EIgnacioProgramacionNCapasModel.Store.UsuarioUpdate" />
           <FunctionImportMapping FunctionImportName="AseguradoraDelete" FunctionName="EIgnacioProgramacionNCapasModel.Store.AseguradoraDelete" />
+          <FunctionImportMapping FunctionImportName="AseguradoraGetById" FunctionName="EIgnacioProgramacionNCapasModel.Store.AseguradoraGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EIgnacioProgramacionNCapasModel.AseguradoraGetById_Result">
+                <ScalarProperty Name="IdAseguradora" ColumnName="IdAseguradora" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="AseguradoraUpdate" FunctionName="EIgnacioProgramacionNCapasModel.Store.AseguradoraUpdate" />
         </EntityContainerMapping>
       </Mapping>

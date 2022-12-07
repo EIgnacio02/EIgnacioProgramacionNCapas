@@ -17,9 +17,27 @@ namespace SL_WCF
             return new SL_WCF.Result { Correct=result.Correct, Message=result.Message, Ex=result.Ex,Objects=result.Objects,Object=result.Object};
         }
 
+
+        public SL_WCF.Result GetById(int IdUsuario)
+        {
+            ML.Result result = BL.Aseguradora.GetById(IdUsuario);
+            return new SL_WCF.Result { Correct = result.Correct, Message = result.Message, Ex = result.Ex, Objects = result.Objects, Object = result.Object };
+        }
         public SL_WCF.Result Add(ML.Aseguradora aseguradora)
         {
             ML.Result result = BL.Aseguradora.Add(aseguradora);
+            return new SL_WCF.Result { Correct = result.Correct, Message = result.Message, Ex = result.Ex, Objects = result.Objects, Object = result.Object };
+        }
+
+        public SL_WCF.Result Update(ML.Aseguradora aseguradora)
+        {
+            ML.Result result = BL.Aseguradora.Update(aseguradora);
+            return new SL_WCF.Result { Correct = result.Correct, Message = result.Message, Ex = result.Ex, Objects = result.Objects, Object = result.Object };
+        }
+
+        public SL_WCF.Result Delete(int IdUsuario)
+        {
+            ML.Result result = BL.Aseguradora.Delete(IdUsuario);
             return new SL_WCF.Result { Correct = result.Correct, Message = result.Message, Ex = result.Ex, Objects = result.Objects, Object = result.Object };
         }
     }

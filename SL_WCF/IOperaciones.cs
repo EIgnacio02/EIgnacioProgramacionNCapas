@@ -22,5 +22,9 @@ namespace SL_WCF
 
         [OperationContract]
         double Division(double numero1, double numero2);
+
+
+        [OperationContract]
+        string Saludar(string nombre);
     }
 }

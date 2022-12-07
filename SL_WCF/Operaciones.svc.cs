@@ -27,5 +27,10 @@ namespace SL_WCF
         {
             return numero1 / numero2;
         }
+
+        public string Saludar(string nombre)
+        {
+            return "Hola"+nombre;
+        }
     }
 }
