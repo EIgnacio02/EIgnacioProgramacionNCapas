@@ -735,7 +735,7 @@ namespace BL
 
                     if (query>0)
                     {
-                        result.Message = "Se ingresaron los datos correctamente";
+                        
                     }
                 }
                 result.Correct = true;

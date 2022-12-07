@@ -213,7 +213,14 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="IdUsuario" Type="int" Mode="In" />
         </Function>
+        <Function Name="AseguradoraDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAseguradora" Type="int" Mode="In" />
+        </Function>
         <Function Name="AseguradoraGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="AseguradoraUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAseguradora" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="ColoniaGetByIdMunicipio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdMunicipio" Type="int" Mode="In" />
         </Function>
@@ -438,13 +445,13 @@
           </FunctionImport>
           <FunctionImport Name="AseguradoraGetAll" ReturnType="Collection(EIgnacioProgramacionNCapasModel.AseguradoraGetAll_Result)" />
           <FunctionImport Name="ColoniaGetByIdMunicipio" ReturnType="Collection(EIgnacioProgramacionNCapasModel.ColoniaGetByIdMunicipio_Result)">
-            <Parameter Name="IdMunicipio" Mode="In" Type="Int32" />
+          <Parameter Name="IdMunicipio" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteUsuario">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DireccionGetByIdColonia" ReturnType="Collection(EIgnacioProgramacionNCapasModel.DireccionGetByIdColonia_Result)">
-            <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+          <Parameter Name="IdColonia" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="EmpleadoAdd">
             <Parameter Name="NumeroEmpleado" Mode="In" Type="String" />
@@ -483,13 +490,13 @@
             <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EmpresaDelete">
-            <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
+          <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="EmpresaGetAll" ReturnType="Collection(EIgnacioProgramacionNCapasModel.EmpresaGetAll_Result)">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
+          <Parameter Name="Nombre" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EmpresaGetById" ReturnType="Collection(EIgnacioProgramacionNCapasModel.EmpresaGetById_Result)">
-            <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
+          <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="EmpresaUpdate">
             <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
@@ -500,15 +507,15 @@
             <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EstadoGetByIdPais" ReturnType="Collection(EIgnacioProgramacionNCapasModel.EstadoGetByIdPais_Result)">
-            <Parameter Name="IdPais" Mode="In" Type="Int32" />
+          <Parameter Name="IdPais" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="MunicipioGetByIdEstado" ReturnType="Collection(EIgnacioProgramacionNCapasModel.MunicipioGetByIdEstado_Result)">
-            <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+          <Parameter Name="IdEstado" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PaisGetAll" ReturnType="Collection(EIgnacioProgramacionNCapasModel.PaisGetAll_Result)" />
           <FunctionImport Name="RolGetAll" ReturnType="Collection(EIgnacioProgramacionNCapasModel.RolGetAll_Result)" />
           <FunctionImport Name="RollAdd">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
+          <Parameter Name="Nombre" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="UpdateStatus">
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
@@ -534,7 +541,7 @@
             <Parameter Name="IdColonia" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioDelete">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(EIgnacioProgramacionNCapasModel.UsuarioGetAll_Result)">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -542,7 +549,7 @@
             <Parameter Name="IdRol" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="UsuarioGetById" ReturnType="Collection(EIgnacioProgramacionNCapasModel.UsuarioGetById_Result)">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsuarioUpdate">
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
@@ -563,6 +570,13 @@
             <Parameter Name="NumeroInterior" Mode="In" Type="String" />
             <Parameter Name="NumeroExterior" Mode="In" Type="String" />
             <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AseguradoraDelete">
+            <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AseguradoraUpdate">
+            <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Aseguradora">
@@ -1239,6 +1253,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UsuarioUpdate" FunctionName="EIgnacioProgramacionNCapasModel.Store.UsuarioUpdate" />
+          <FunctionImportMapping FunctionImportName="AseguradoraDelete" FunctionName="EIgnacioProgramacionNCapasModel.Store.AseguradoraDelete" />
+          <FunctionImportMapping FunctionImportName="AseguradoraUpdate" FunctionName="EIgnacioProgramacionNCapasModel.Store.AseguradoraUpdate" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
