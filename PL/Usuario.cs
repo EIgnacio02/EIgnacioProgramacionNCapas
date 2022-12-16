@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PL
 {
-    internal class Usuario
+    public class Usuario
     {
         /*
         public static void Add()
